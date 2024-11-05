@@ -46,3 +46,22 @@ const gameFlow = {
 gameFlow.tieCheck();
 console.log(gameBoard.board);
 
+const displayController = {
+
+   displayBoard: function() {
+        const boardContainer = document.querySelector(".container")
+        boardContainer.innerHTML = '';
+
+        gameBoard.board.forEach((cell, index) => {
+            const cellElement = document.createElement('div');
+            cellElement.textContent = cell; 
+            cellElement.classList.add('cell'); 
+            cellElement.dataset.index = index; 
+
+            
+            boardContainer.appendChild(cellElement);
+        }); 
+   } 
+};
+
+displayController.displayBoard();
