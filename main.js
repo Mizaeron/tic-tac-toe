@@ -1,6 +1,6 @@
 
 const gameBoard = {
-    board: ['O', 'O', 'X', 'X', 'O', '', 'X', 'X', '0'],
+    board: ['O', 'O', 'X', 'X', 'X', 'X', 'X', 'X', '0'],
     winConditions: [
         [0, 1, 2], [3, 4, 5], [6, 7, 8],
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -32,12 +32,18 @@ const gameFlow = {
 
     tieCheck: function() {
         let hasNoEmptyStrings = gameBoard.board.every(item => item !== '');
+        let result = gameBoard.winnerCheck();
 
-        return hasNoEmptyStrings ? (console.log("It's a tie"), true) : (console.log("Game is ongoing"), false);
+        if (hasNoEmptyStrings && result === null) {
+            console.log("tie");
+        } else if (hasNoEmptyStrings) {
+            console.log("No empty strings");
+        } else {
+            console.log("Game is ongoing")
+        }
     }
 };
 
 console.log(gameBoard.board);
 
-gameBoard.winnerCheck();
 gameFlow.tieCheck();
