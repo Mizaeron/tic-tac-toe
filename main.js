@@ -1,6 +1,6 @@
 
 const gameBoard = {
-    board: ['', '', '', '', '', '', '', '', ''],
+    board: ['O', 'O', 'X', 'X', 'O', '', 'X', 'X', '0'],
     winConditions: [
         [0, 1, 2], [3, 4, 5], [6, 7, 8],
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -21,16 +21,23 @@ const gameBoard = {
 
 };
 
-gameBoard.winnerCheck();
-
 const players = {
 
 };
 
 const gameFlow = {
-    firstInput: function() {
-        gameBoard.board.splice(3, 0, "X");
+    firstInput: function(index, remove, item) {
+        gameBoard.board.splice(index, remove, item);
+    },
+
+    tieCheck: function() {
+        let hasNoEmptyStrings = gameBoard.board.every(item => item !== '');
+
+        return hasNoEmptyStrings ? (console.log("It's a tie"), true) : (console.log("Game is ongoing"), false);
     }
 };
 
-gameFlow.firstInput();
+console.log(gameBoard.board);
+
+gameBoard.winnerCheck();
+gameFlow.tieCheck();
