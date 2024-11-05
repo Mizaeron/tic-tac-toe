@@ -1,6 +1,6 @@
 
 const gameBoard = {
-    board: ['O', 'O', 'X', 'X', 'X', 'X', 'X', 'X', '0'],
+    board: ['X', 'X', 'O', 'O', 'X', 'X', 'O', 'O', 'X'],
     winConditions: [
         [0, 1, 2], [3, 4, 5], [6, 7, 8],
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -18,7 +18,6 @@ const gameBoard = {
         console.log('No winner');
         return null;
     }
-
 };
 
 const players = {
@@ -44,6 +43,6 @@ const gameFlow = {
     }
 };
 
+gameFlow.tieCheck();
 console.log(gameBoard.board);
 
-gameFlow.tieCheck();
