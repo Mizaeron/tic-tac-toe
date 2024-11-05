@@ -1,6 +1,6 @@
 
 const gameBoard = {
-    board: ['', '', 'X', '', 'X', 'X', '', '', ''],
+    board: ['', '', '', '', '', '', '', '', ''],
     winConditions: [
         [0, 1, 2], [3, 4, 5], [6, 7, 8],
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -28,8 +28,9 @@ const players = {
 };
 
 const gameFlow = {
-    firstInput: function(item, pos) {
-        gameBoard.board.push(item, pos);
+    firstInput: function() {
+        gameBoard.board.splice(3, 0, "X");
     }
 };
 
+gameFlow.firstInput();
