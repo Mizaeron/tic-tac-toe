@@ -27,13 +27,22 @@ const players = {
 const gameFlow = {
 
     input: function() {
+        let lastInput = "O";
         let allStringsEmpty = gameBoard.board.every(item => item == '')
         const cellElement = document.querySelectorAll(".cell");
         
         if (allStringsEmpty) {
             cellElement.forEach(cell => {
             cell.addEventListener('click', function() {
-                cell.textContent = "X";
+                if (cell.textContent === '') {
+                    if(lastInput === 'X') {
+                        cell.textContent = "O";
+                        lastInput = "O";
+                    } else {
+                        cell.textContent = "X";
+                        lastInput = "X";
+                    }
+                }
             });
         })}
     },
