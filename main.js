@@ -34,7 +34,9 @@ const gameFlow = {
         if (allStringsEmpty) {
             cellElement.forEach(cell => {
             cell.addEventListener('click', function() {
-                if (cell.textContent === '') {
+                gameFlow.tieCheck();
+                gameBoard.board = Array.from(cellElement).map(cell => cell.textContent);
+                if (cell.textContent === '') { // Make sure cell is empty before changing it
                     if(lastInput === 'X') {
                         cell.textContent = "O";
                         lastInput = "O";
@@ -46,10 +48,6 @@ const gameFlow = {
             });
         })}
     },
-
-  /*   firstInput: function(index, remove, item) {
-        gameBoard.board.splice(index, remove, item);
-    }, */
 
     tieCheck: function() {
         let hasNoEmptyStrings = gameBoard.board.every(item => item !== '');
@@ -90,6 +88,5 @@ function cellIndex() {
     console.log("cell clicked", this.dataset.index);
 }
 
-gameFlow.tieCheck();
 displayController.displayBoard();
 gameFlow.input();
