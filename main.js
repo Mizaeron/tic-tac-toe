@@ -1,6 +1,6 @@
 
 const gameBoard = {
-    board: ['X', 'X', 'O', 'O', 'X', 'X', 'O', 'O', 'X'],
+    board: ['', '', '', '', '', '', '', '', ''],
     winConditions: [
         [0, 1, 2], [3, 4, 5], [6, 7, 8],
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -25,9 +25,22 @@ const players = {
 };
 
 const gameFlow = {
-    firstInput: function(index, remove, item) {
-        gameBoard.board.splice(index, remove, item);
+
+    input: function() {
+        let allStringsEmpty = gameBoard.board.every(item => item == '')
+        const cellElement = document.querySelectorAll(".cell");
+        
+        if (allStringsEmpty) {
+            cellElement.forEach(cell => {
+            cell.addEventListener('click', function() {
+                cell.textContent = "X";
+            });
+        })}
     },
+
+  /*   firstInput: function(index, remove, item) {
+        gameBoard.board.splice(index, remove, item);
+    }, */
 
     tieCheck: function() {
         let hasNoEmptyStrings = gameBoard.board.every(item => item !== '');
@@ -43,8 +56,6 @@ const gameFlow = {
     }
 };
 
-gameFlow.tieCheck();
-console.log(gameBoard.board);
 
 const displayController = {
 
@@ -60,8 +71,16 @@ const displayController = {
 
             
             boardContainer.appendChild(cellElement);
+
+            cellElement.addEventListener('click', cellIndex);
         }); 
    } 
 };
 
+function cellIndex() {
+    console.log("cell clicked", this.dataset.index);
+}
+
+gameFlow.tieCheck();
 displayController.displayBoard();
+gameFlow.input();
