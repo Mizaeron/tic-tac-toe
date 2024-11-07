@@ -26,3 +26,11 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.result {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    border: 1px solid grey;
+    margin-bottom: 20px;
+}

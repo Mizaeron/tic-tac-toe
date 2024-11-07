@@ -6,13 +6,16 @@ const gameBoard = {
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
         [0, 4, 8], [2, 4, 6]
     ],
+    winner: null,
+
     winnerCheck: function() {
         for (const condition of this.winConditions) {
             const [a, b, c] = condition;
 
             if (this.board[a] && this.board[a] === this.board[b] && this.board[a] === this.board[c]) {
+                this.winner = this.board[a];
                 console.log(`Winner: ${this.board[a]}`);
-                return true;
+                return this.winner;
             }
         }
         console.log('No winner');
@@ -61,10 +64,11 @@ const gameFlow = {
         if (result) {
           console.log("We have a winner");
           this.gameOver = true;
+          displayController.displayWinner(gameBoard.winner);
         } else if (hasNoEmptyStrings && result === null) {
             console.log("tie");
-        } else if (hasNoEmptyStrings) {
-            console.log("No empty strings");
+            this.gameOver = true;
+            displayController.displayWinner("It's a tie");
         } else {
             console.log("Game is ongoing")
         }
@@ -82,19 +86,25 @@ const displayController = {
             const cellElement = document.createElement('div');
             cellElement.textContent = cell; 
             cellElement.classList.add('cell'); 
-            cellElement.dataset.index = index; 
-
             
             boardContainer.appendChild(cellElement);
 
-            cellElement.addEventListener('click', cellIndex);
         }); 
-   } 
-};
+   },
 
-function cellIndex() {
-    console.log("cell clicked", this.dataset.index);
-}
+   displayWinner: function(message) {
+    const wrapper = document.querySelector(".wrapper")
+    const winnerDisplay = document.createElement('div');
+    winnerDisplay.classList.add("result");
+
+    if (gameBoard.winner === null) {
+        winnerDisplay.textContent = message;
+    } else {
+        winnerDisplay.textContent = `Winner: ${gameBoard.winner}`;
+    }
+    wrapper.prepend(winnerDisplay);
+   }
+};
 
 displayController.displayBoard();
 gameFlow.input();
