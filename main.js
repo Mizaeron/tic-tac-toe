@@ -12,7 +12,7 @@ const gameBoard = {
 
             if (this.board[a] && this.board[a] === this.board[b] && this.board[a] === this.board[c]) {
                 console.log(`Winner: ${this.board[a]}`);
-                return this.board[a];
+                return true;
             }
         }
         console.log('No winner');
@@ -25,6 +25,7 @@ const players = {
 };
 
 const gameFlow = {
+    gameOver: false,
 
     input: function() {
         let lastInput = "O";
@@ -34,8 +35,8 @@ const gameFlow = {
         if (allStringsEmpty) {
             cellElement.forEach(cell => {
             cell.addEventListener('click', function() {
-                gameFlow.tieCheck();
-                gameBoard.board = Array.from(cellElement).map(cell => cell.textContent);
+                if(gameFlow.gameOver) return;
+
                 if (cell.textContent === '') { // Make sure cell is empty before changing it
                     if(lastInput === 'X') {
                         cell.textContent = "O";
@@ -44,7 +45,11 @@ const gameFlow = {
                         cell.textContent = "X";
                         lastInput = "X";
                     }
+
+                    gameBoard.board = Array.from(cellElement).map(cell => cell.textContent); // map input to the board
+                    gameFlow.tieCheck();
                 }
+
             });
         })}
     },
@@ -53,7 +58,10 @@ const gameFlow = {
         let hasNoEmptyStrings = gameBoard.board.every(item => item !== '');
         let result = gameBoard.winnerCheck();
 
-        if (hasNoEmptyStrings && result === null) {
+        if (result) {
+          console.log("We have a winner");
+          this.gameOver = true;
+        } else if (hasNoEmptyStrings && result === null) {
             console.log("tie");
         } else if (hasNoEmptyStrings) {
             console.log("No empty strings");
