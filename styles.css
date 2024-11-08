@@ -33,4 +33,21 @@ body {
     font-weight: bold;
     border: 1px solid grey;
     margin-bottom: 20px;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.reset {
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+    background-color: hsl(160, 28%, 72%);
+    margin-bottom: 10px;
+}
+
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 300px;
+    justify-content: center;
 }

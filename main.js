@@ -72,6 +72,14 @@ const gameFlow = {
         } else {
             console.log("Game is ongoing")
         }
+    },
+
+    resetGame: function() {
+        this.gameOver = false;
+        gameBoard.board = ['', '', '', '', '', '', '', '',];
+
+        const cellElement = document.querySelectorAll(".cell");
+        cellElement.forEach(cell => cell.textContent = '');
     }
 };
 
