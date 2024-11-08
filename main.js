@@ -24,8 +24,23 @@ const gameBoard = {
 };
 
 const players = {
+    player1: null,
+    player2: null,
 
+    setUserName: function() {
+        const player1Input = document.querySelector(".player1");
+        const player2Input = document.querySelector(".player2");
+        
+        this.player1 = player1Input.value;
+        this.player2 = player2Input.value;
+    }
 };
+
+document.getElementById("submitNames").addEventListener("click", function() {
+    players.setUserName();
+    document.querySelector(".player1Display").textContent = `player1: ${players.player1}`;
+    document.querySelector(".player2Display").textContent = `player2: ${players.player2}`;
+})
 
 const gameFlow = {
     gameOver: false,
@@ -34,11 +49,14 @@ const gameFlow = {
         let lastInput = "O";
         let allStringsEmpty = gameBoard.board.every(item => item == '')
         const cellElement = document.querySelectorAll(".cell");
+        const reset = document.querySelector(".reset");
+
+        reset.addEventListener('click', gameFlow.resetGame);
         
         if (allStringsEmpty) {
             cellElement.forEach(cell => {
             cell.addEventListener('click', function() {
-                if(gameFlow.gameOver) return;
+                if(gameFlow.gameOver) return; // Stop input if game is over
 
                 if (cell.textContent === '') { // Make sure cell is empty before changing it
                     if(lastInput === 'X') {
@@ -53,8 +71,10 @@ const gameFlow = {
                     gameFlow.tieCheck();
                 }
 
+
             });
         })}
+         
     },
 
     tieCheck: function() {
@@ -116,3 +136,5 @@ const displayController = {
 
 displayController.displayBoard();
 gameFlow.input();
+
+
